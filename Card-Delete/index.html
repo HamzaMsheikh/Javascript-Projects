@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete-Card</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div id="container">
+        <center><h1>Prduct Catalog</h1></center>
+        <div class="cards">
+            <div class="card" id="card-1">
+                <img id="pic1" src="https://xcessorieshub.com/wp-content/uploads/2022/05/31Ad4Oif7L-1.webp">
+                <h2>Air Buds</h2>
+                <p id="price">Price $100</p>
+                <button class="delete-btn" onclick="deleteCard('card-1')">Delete</button>
+            </div>
+            <div class="card" id="card-2">
+                <img id="pic1" src="https://powerhouseexpress.com.pk/cdn/shop/files/space-le-30-headphone-2.jpg?v=1715688223">
+                <h2>Headphone</h2>
+                <p id="price">Price $160</p>
+                <button class="delete-btn" onclick="deleteCard('card-2')">Delete</button>
+            </div>
+            <div class="card" id="card-3">
+                <img id="pic1" src="https://www.digitaltrends.com/wp-content/uploads/2023/04/HP-Chromebook-14a-ne0047nr-Laptop.jpg?fit=1200%2C900&p=1">
+                <h2>Laptop</h2>
+                <p id="price">Price $200</p>
+                <button class="delete-btn" onclick="deleteCard('card-3')">Delete</button>
+            </div>
+        </div>
+        <p class="none" style="display: none;">No more items left...</p>
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html>
