@@ -1,0 +1,190 @@
+body {
+  background-color: rgb(20, 20, 20);  
+}
+.pic {
+    height: 6vh;
+    width: 13vw;
+    margin: 2vh 0 0 1vh;
+}
+.navigation {
+    height: 12vh;
+    width: 100vw;border: 1px solid black;
+    display: flex;
+    background-color: rgb(20, 20, 20);
+    border: none;
+}
+.childnav1 {
+    margin-top: 1vh;
+    margin-left: 3.5vh;color: white;
+    display: flex;
+    gap: 3.5vh;
+}
+.childnav2 {
+    margin-top: 2vh;
+    margin-left: 43vh;
+}
+.deco {
+    background-color: rgb(20, 20, 20);
+    color: white;
+    border: none;
+    margin-bottom: 3vh;
+    font-size: 16px;
+    font-weight: bold;
+}
+h4 {
+    font-size: 16px;
+    margin-top: 2.5vh;
+    font-weight: bold;
+}
+#emoji {
+    color: white;
+    margin-left: 1vh;
+}
+h1 {
+    color: rgb(255, 196, 0);
+    font-size: 80px;
+}
+span {
+    font-size: 80px;
+    font-family: serif;
+    font-weight: bold;
+    color: white;
+}
+#white {
+    color: white;
+}
+.child1 {
+    margin-top: 5vh;
+    margin-left: 30vh;
+}
+#datachild {
+    height: 10vh;
+    width: 30vw;
+    display: flex;
+    gap: 1vh;
+}
+#exampleInputEmail1 {
+    width: 46vh;
+    height: 7vh;
+}
+#registerbuton {
+    height: 7vh;
+    width: 15vh;
+}
+#emoji1 {
+    color: rgb(255, 208, 0);
+}
+.datachild1 {
+    height: 9vh;
+    width: 45vh;
+    display: flex;
+    gap: 1vh;
+}
+#downloadboton {
+    width: 7vh;
+    height: 8vh;
+    border: 1px solid gray;
+}
+.pic1 {
+    height: 25px;
+    width: 25px;
+}
+h6 {
+    color: gray;
+}
+.qrcode {
+    margin-left: 18vh;
+}
+.main {
+    display: flex;
+}
+.child2 {
+    margin-top: 9vh;
+    margin-left: 6vw;
+    
+}
+.datachild2 {
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid black;
+    height: 45vh;
+    width: 40vw;
+    margin-left: 5vh;
+    border-radius: 10px;
+    color: gray;
+    background-color: rgb(19, 19, 19);
+    box-shadow: 2px 2px 15px 0 rgb(114, 111, 111);
+}
+.datachild3 {
+    border: 1px solid black;
+    height: 40vh;
+    width: 40vw;
+    margin-left: 5vh;
+    margin-top: 2vh;
+    border-radius: 10px;
+    color: gray;
+    background-color: rgb(19, 19, 19);
+    box-shadow: 2px 2px 15px 0 rgb(114, 111, 111);
+}
+.pic2 {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    margin-left: 1vh;
+}
+.divimg {
+    height: 35vh;
+    width: 7vh;
+    display: grid;
+}
+.divhead {
+    height: 35vh;
+    width: 7vh;
+    display: grid;
+    color: white;
+}
+.divp {
+    height: 35vh;
+    width: 10vw;
+    display: grid;
+    color: gray;
+}
+.divprice {
+    height: 35vh;
+    width: 16vw;
+    display: grid;
+    font-weight: bold;
+    color: white;
+}
+.divper {
+    height: 35vh;
+    width: 6vw;
+    display: grid;
+    font-weight: bold;
+    color: green;
+}
+#red {
+    color: red;
+}
+#bottom {
+    margin-top: 15vh;
+}
+.datachild4 {
+    border: 1px solid black;
+    height: 17vh;
+    width: 40vw;
+    margin-left: 5vh;
+    margin-top: 2vh;
+    border-radius: 10px;
+    color: gray;
+    background-color: rgb(19, 19, 19);
+    box-shadow: 2px 2px 15px 0 rgb(114, 111, 111);
+}
+.datachild3 p {
+    padding: 0 2vh 0 2vh;
+    color: white;
+}
+.datachild4 h5 {
+    padding: 5vh 2vh 0 2vh;
+    color: white;
+}
