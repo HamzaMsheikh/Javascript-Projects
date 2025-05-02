@@ -1,0 +1,148 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.background {
+    height: 100vh;
+    width: 100%;
+    background: url('https://twistedsifter.com/wp-content/uploads/2013/05/animated-gifs-of-fighting-game-backgrounds-43.gif') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.bird {
+    height: 12vmin; /* Relative to viewport min dimension */
+    width: 16vmin;
+    position: fixed;
+    top: 40vh;
+    left: 30vw;
+    z-index: 100;
+}
+
+.pipe_sprite {
+    position: fixed;
+    top: 40vh;
+    left: 100vw;
+    height: 70vh;
+    width: 8vmin; /* Responsive pipe width */
+    background: radial-gradient(lightgreen 50%, green);
+    border: 3px solid black; /* Slightly smaller border for smaller screens */
+}
+
+.message {
+    position: absolute;
+    z-index: 10;
+    color: black;
+    top: 30%;
+    left: 50%;
+    font-size: 6vmin; /* Responsive font size */
+    transform: translate(-50%, -50%);
+    text-align: center;
+    white-space: nowrap;
+}
+
+.messageStyle {
+    background: white;
+    padding: 3vmin;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 5px;
+}
+
+.score {
+    position: fixed;
+    z-index: 10;
+    height: 10vh;
+    font-size: 8vmin; /* Responsive score font */
+    font-weight: 100;
+    color: white;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    top: 0;
+    left: 0;
+    margin: 1vmin;
+}
+
+.score_val {
+    color: gold;
+    font-weight: bold;
+}
+
+/* Large Screens (Desktops, >1200px) */
+@media only screen and (min-width: 1200px) {
+    .bird {
+        height: 100px;
+        width: 130px;
+    }
+    .pipe_sprite {
+        width: 6vw;
+        border: 5px solid black;
+    }
+    .message {
+        font-size: 4rem;
+    }
+    .score {
+        font-size: 10vh;
+    }
+}
+
+/* Medium Screens (Tablets, 768px - 1200px) */
+@media only screen and (max-width: 1200px) {
+    .bird {
+        height: 10vmin;
+        width: 14vmin;
+    }
+    .pipe_sprite {
+        width: 10vmin;
+    }
+    .message {
+        font-size: 5vmin;
+        top: 35%;
+    }
+    .score {
+        font-size: 7vmin;
+    }
+}
+
+/* Small Screens (Mobiles, <768px) */
+@media only screen and (max-width: 768px) {
+    .bird {
+        height: 8vmin;
+        width: 12vmin;
+        left: 20vw; /* Adjust bird position for smaller screens */
+    }
+    .pipe_sprite {
+        width: 12vmin;
+        border: 2px solid black; /* Thinner border for mobiles */
+    }
+    .message {
+        font-size: 4vmin;
+        top: 40%;
+        white-space: normal; /* Allow wrapping on very small screens */
+        padding: 2vmin;
+    }
+    .score {
+        font-size: 6vmin;
+        margin: 0.5vmin;
+    }
+}
+
+/* Very Small Screens (<480px) */
+@media only screen and (max-width: 480px) {
+    .bird {
+        height: 20vmin;
+        width: 20vmin;
+        left: 15vw;
+    }
+    .pipe_sprite {
+        width: 14vmin;
+    }
+    .message {
+        font-size: 3.5vmin;
+        top: 45%;
+    }
+    .score {
+        font-size: 5vmin;
+    }
+}
