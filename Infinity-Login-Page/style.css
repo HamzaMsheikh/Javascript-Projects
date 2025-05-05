@@ -1,0 +1,101 @@
+*{
+    margin: 0%;
+    padding: 0%;
+}
+body {
+    background-image: url(https://slidechef.net/wp-content/uploads/2022/09/Professional-PPT-Background.jpg);
+    background-size: cover; background-repeat: no-repeat;
+}
+.main {
+    display: flex;
+    height: 98vh;
+    width: 70vw;
+    margin-left: 16vw;
+}
+.child1 {
+    border: 1px solid white;
+    border-radius: 12px;
+    height: 92vh;
+    width: 35vw;
+    text-align: center;
+    margin-top: 3vh;
+    background-color: white;
+    box-shadow: 5px 5px 20px 0 rgb(53, 53, 53);
+}
+.child2 {
+    border: 1px solid red;
+    border-radius: 12px;
+    height: 92vh;
+    width: 35vw;
+    margin-top: 3vh;
+    box-shadow: 5px 5px 20px 0 rgb(53, 53, 53);
+}
+#heading {
+    color: rgb(141, 127, 127);
+    font-size: 3vh;
+}
+#line {
+    color: rgb(109, 109, 109);
+}
+.pic {
+    height: 4vh;
+    width: 4vw;
+}
+#paragraph {
+    font-weight: bold;
+    font-size: 8vh;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: red;
+    margin: 0%;
+    padding: 0%;
+}
+#exampleInputEmail1 {
+    width: 30vw;
+    border-radius: 20px;
+    margin-left: 5vh;
+    text-align: center;
+    border: 1px solid red;
+}
+#inputPassword5 {
+    width: 30vw;
+    border-radius: 20px;
+    margin-left: 5vh;
+    text-align: center;
+    border: 1px solid red;
+}
+#submit {
+    width: 30vw;
+    border-radius: 20px;
+    text-align: center;
+}
+.row {
+    height: 2px;
+    background-color: rgb(70, 70, 70);
+}
+.line {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   align-items: center;
+   width: 20vw;
+   margin-left: 7vw;
+}
+.pic1 {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+}
+#social {
+    border-radius: 10px;
+}
+.pic2 {
+    height: 92vh;
+    width: 35vw;
+    border-radius: 12px;
+}
+
+@media screen and (max-width 500px){
+    .pic2 {
+        height: 10px;
+        width: 10px;
+    }
+}
