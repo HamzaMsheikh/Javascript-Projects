@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeperFace</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center p-4">
+
+    <!-- Navbar -->
+    <header class="w-full bg-yellow-500 text-white p-4 text-center text-2xl font-bold">
+        PeperFace - Blogging Dashboard
+    </header>
+
+    <!-- Blog Create Section -->
+    <div class="w-full max-w-2xl bg-white p-6 rounded-lg shadow-md mt-4">
+        <h2 class="text-xl font-bold mb-3">Create a Blog</h2>
+        <input id="blog-title" type="text" placeholder="Blog Title" class="w-full p-2 border rounded mb-3">
+        <textarea id="blog-content" placeholder="Write your blog..." class="w-full p-2 border rounded mb-3 h-32"></textarea>
+        
+        <!-- Image Upload -->
+        <input type="file" id="blog-image" accept="image/*" class="mb-3">
+        <img id="image-preview" class="w-full max-h-60 object-cover rounded-lg hidden mb-3">
+
+        <button id="post-blog" class="w-full bg-yellow-500 text-white py-2 rounded hover:bg-yellow-600">
+            Post Blog
+        </button>
+    </div>
+
+    <!-- Blog Feed Section -->
+    <div class="w-full max-w-2xl mt-6">
+        <h2 class="text-xl font-bold mb-3">Latest Blogs</h2>
+        <div id="blog-feed" class="space-y-4"></div>
+    </div>
+    
+    <script type="module" src="./peperface.js"></script>
+</body>
+</html> 
+

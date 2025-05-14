@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | PeperFace</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+    <header class="bg-gray-800 text-white p-4 flex justify-between items-center">
+        <div class="text-2xl font-bold">PeperFace</div>
+        <nav>
+            <ul class="flex space-x-6">
+                <li><a href="#" class="hover:text-yellow-400">Home</a></li>
+                <li><a href="#about" class="hover:text-yellow-400">About</a></li>
+                <li><a href="#blog" class="hover:text-yellow-400">Blogs</a></li>
+                <li><a href="#contact" class="hover:text-yellow-400">Contact</a></li>
+                <li id="loginNavItem"><a href="./Login-page/login.html" class="bg-yellow-500 px-4 py-2 rounded text-black hover:bg-yellow-600">Login</a></li>
+                <li id="logoutNavItem" class="hidden"><a href="#" id="logoutButton" class="bg-red-500 px-4 py-2 rounded text-white hover:bg-red-600">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <section class="relative h-[400px] flex items-center justify-center text-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1542435503-956c469947f6?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YmxvZ3xlbnwwfHwwfHx8MA%3D%3D');">
+        <div>
+            <h1 class="text-4xl text-black font-bold">Welcome to PeperFace</h1>
+            <p class="text-lg text-black">Read amazing articles on technology, lifestyle, and more!</p>
+            <a id="exploreBlogsBtn" href="#blog" class="mt-4 inline-block bg-yellow-500 text-black px-6 py-2 rounded-lg hover:bg-yellow-600">Explore Blogs</a>
+            <a id="createBlogsBtn"  href="./main-page/peperface.html" id="createBlogsBtn" class="mt-4 inline-block bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 hidden">Create Blogs</a>
+        </div>
+    </section>
+
+    
+    <section id="blog" class="py-16 text-center">
+        <h2 class="text-3xl font-bold mb-6">Featured Blogs</h2>
+        <!-- Featured blogs container - Will be populated by JavaScript -->
+        <div id="featured-blogs-container" class="flex flex-wrap justify-center gap-6">
+            <!-- Loading state -->
+            <p class="text-gray-500">Loading blogs...</p>
+        </div>
+    </section>
+
+    
+    <section id="about" class="py-16 bg-gray-200 text-center">
+        <h2 class="text-3xl font-bold">About Us</h2>
+        <p class="text-lg w-3/4 mx-auto text-gray-700">This is a blogging platform where we share insightful articles on technology, lifestyle, health, and more.</p>
+    </section>
+
+    
+    <footer class="bg-gray-800 text-white text-center p-4">
+        <p>&copy; 2025 My Blogging Website | All Rights Reserved</p>
+        <div class="flex justify-center space-x-4 mt-2">
+            <a href="#"><img src="https://img.icons8.com/ios-glyphs/30/ffffff/facebook.png"/></a>
+            <a href="#"><img src="https://img.icons8.com/ios-glyphs/30/ffffff/twitter.png"/></a>
+            <a href="#"><img src="https://img.icons8.com/ios-glyphs/30/ffffff/instagram.png"/></a>
+        </div>
+    </footer>   
+    
+
+    <script type="module" src="./script.js"></script>
+</body>
+</html>
+
