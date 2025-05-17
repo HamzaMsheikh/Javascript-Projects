@@ -5,47 +5,148 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | PeperFace</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Background image */
+        body {
+            background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20230903/pngtree-two-yellow-sticky-notes-with-smiley-faces-on-them-image_13206408.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        /* Footer link underline effect */
+        .footer-link {
+            position: relative;
+        }
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #f59e0b;
+            transition: width 0.3s ease;
+        }
+        .footer-link:hover::after {
+            width: 100%;
+        }
+    </style>
 </head>
-<body class="bg-yellow-200 flex items-center justify-center min-h-screen">
-    <div class="bg-white p-6 rounded-lg shadow-md w-96">
-        <!-- Tabs for Login & Signup -->
-        <div class="flex justify-around mb-4">
-            <button id="loginTab" class="py-2 px-4 bg-yellow-500 text-white rounded">Login</button>
-            <button id="signupTab" class="py-2 px-4 text-gray-700 bg-gray-200 rounded">Signup</button>
-        </div>
-
-        <!-- Login Form -->
-        <div id="loginForm">
-            <h2 class="text-2xl font-bold mb-4 text-center">Login</h2>
-            <input id="signIn-email" type="email" placeholder="Email" class="w-full p-2 border rounded mb-3">
-            <input id="signIn-password" type="password" placeholder="Password" class="w-full p-2 border rounded mb-3">
-            <button id="sign-in-button" class="w-full bg-yellow-500 text-white py-2 rounded hover:bg-yellow-600">Login</button>
-        </div>
-
-        <!-- Signup Form (Hidden Initially) -->
-        <div id="signupForm" class="hidden">
-            <h2 class="text-2xl font-bold mb-4 text-center">Signup</h2>
-            <input id="signup-name" type="text" placeholder="Full Name" class="w-full p-2 border rounded mb-3">
-            <input id="signup-email" type="email" placeholder="Email" class="w-full p-2 border rounded mb-3">
-            <input id="signup-password" type="password" placeholder="Password" class="w-full p-2 border rounded mb-3">
-            <button id="sign-up-button" class="w-full bg-yellow-500 text-white py-2 rounded hover:bg-yellow-600">Signup</button>
-        </div>
-
-        <div class="text-center mt-4">
-            <button id="adminLoginTab" class="text-sm text-gray-600 hover:text-yellow-500">Admin Login</button>
-        </div>
-
-        <!-- Admin Login Modal -->
-        <div id="adminLoginModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-            <div class="bg-white p-6 rounded-lg w-96">
-                <h2 class="text-2xl font-bold mb-4 text-center">Admin Login</h2>
-                <input id="admin-email" type="email" placeholder="Admin Email" class="w-full p-2 border rounded mb-3">
-                <input id="admin-password" type="password" placeholder="Password" class="w-full p-2 border rounded mb-3">
-                <button id="admin-sign-in-button" class="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600">Login as Admin</button>
-                <button id="cancel-admin-login" class="w-full bg-gray-300 text-gray-800 mt-2 py-2 rounded hover:bg-gray-400">Cancel</button>
+<body class="bg-gray-50 text-gray-900 font-sans min-h-screen flex flex-col">
+    <div class="flex-grow flex items-center justify-center bg-black bg-opacity-50 px-4 sm:px-6">
+        <div class="animate-slide-up bg-white bg-opacity-95 p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-md sm:max-w-lg transition-all duration-600 ease-out">
+            <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-6 text-center">PeperFace</h2>
+            <div class="flex justify-center mb-6">
+                <button id="loginTab" class="bg-yellow-500 text-white px-4 py-2 rounded-l-lg focus:outline-none hover:bg-yellow-600 hover:-translate-y-0.5 transition-all duration-300">Login</button>
+                <button id="signupTab" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-r-lg focus:outline-none hover:bg-yellow-600 hover:text-white hover:-translate-y-0.5 transition-all duration-300">Signup</button>
+                <button id="adminLoginTab" class="bg-gray-200 text-gray-700 px-4 py-2 ml-2 rounded-lg focus:outline-none hover:bg-yellow-600 hover:text-white hover:-translate-y-0.5 transition-all duration-300">Admin Login</button>
             </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="space-y-4">
+                <div class="animate-slide-up-field">
+                    <label for="signIn-email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" id="signIn-email" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500 hover:border-yellow-500 hover:shadow-md transition-all duration-300" placeholder="Enter your email" required>
+                </div>
+                <div class="animate-slide-up-field">
+                    <label for="signIn-password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input type="password" id="signIn-password" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500 hover:border-yellow-500 hover:shadow-md transition-all duration-300" placeholder="Enter your password" required>
+                </div>
+                <button id="sign-in-button" type="submit" class="w-full bg-yellow-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-yellow-600 hover:scale-105 hover:shadow-lg transition-all duration-300">Login</button>
+            </form>
+
+            <!-- Signup Form -->
+            <form id="signupForm" class="space-y-4 hidden">
+                <div class="animate-slide-up-field">
+                    <label for="signup-name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                    <input type="text" id="signup-name" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500 hover:border-yellow-500 hover:shadow-md transition-all duration-300" placeholder="Enter your full name" required>
+                </div>
+                <div class="animate-slide-up-field">
+                    <label for="signup-email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" id="signup-email" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500 hover:border-yellow-500 hover:shadow-md transition-all duration-300" placeholder="Enter your email" required>
+                </div>
+                <div class="animate-slide-up-field">
+                    <label for="signup-password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input type="password" id="signup-password" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500 hover:border-yellow-500 hover:shadow-md transition-all duration-300" placeholder="Enter your password" required>
+                </div>
+                <button id="sign-up-button" type="submit" class="w-full bg-yellow-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-yellow-600 hover:scale-105 hover:shadow-lg transition-all duration-300">Signup</button>
+            </form>
         </div>
     </div>
-    <script type="module" src="./login.js"></script>
+
+    <!-- Admin Login Modal -->
+    <div id="adminLoginModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="animate-modal bg-white p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-md sm:max-w-lg transition-all duration-300">
+            <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-6 text-center">Admin Login</h3>
+            <form id="adminLoginForm" class="space-y-4">
+                <div class="animate-slide-up-field">
+                    <label for="admin-email" class="block text-sm font-medium text-gray-700">Admin Email</label>
+                    <input type="email" id="admin-email" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500 hover:border-yellow-500 hover:shadow-md transition-all duration-300" placeholder="Enter admin email" required>
+                </div>
+                <div class="animate-slide-up-field">
+                    <label for="admin-password" class="block text-sm font-medium text-gray-700">Admin Password</label>
+                    <input type="password" id="admin-password" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500 hover:border-yellow-500 hover:shadow-md transition-all duration-300" placeholder="Enter admin password" required>
+                </div>
+                <div class="flex justify-between">
+                    <button id="admin-sign-in-button" type="submit" class="bg-yellow-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-yellow-600 hover:scale-105 hover:shadow-lg transition-all duration-300">Login as Admin</button>
+                    <button id="cancel-admin-login" type="button" class="bg-gray-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 hover:scale-105 hover:shadow-lg transition-all duration-300">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="animate-footer bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4 sm:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+                <!-- About Section -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">About PeperFace</h3>
+                    <p class="text-gray-300 leading-relaxed text-sm sm:text-base">
+                        PeperFace is your go-to platform for sharing and discovering insightful blogs on technology, lifestyle, and health. Join our community to read, write, and connect!
+                    </p>
+                </div>
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="../index.html" class="footer-link text-gray-300 text-sm sm:text-base hover:text-yellow-500 hover:-translate-y-0.5 transition-all">Home</a></li>
+                        <li><a href="../main-page/peperface.html" class="footer-link text-gray-300 text-sm sm:text-base hover:text-yellow-500 hover:-translate-y-0.5 transition-all">Create Blog</a></li>
+                        <li><a href="#contact" class="footer-link text-gray-300 text-sm sm:text-base hover:text-yellow-500 hover:-translate-y-0.5 transition-all">Contact</a></li>
+                        <li><a href="#" class="footer-link text-gray-300 text-sm sm:text-base hover:text-yellow-500 hover:-translate-y-0.5 transition-all">Login</a></li>
+                    </ul>
+                </div>
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Contact Us</h3>
+                    <ul class="space-y-2 text-gray-300 text-sm sm:text-base">
+                        <li>Email: <a href="mailto:support@peperface.com" class="footer-link hover:text-yellow-500 hover:-translate-y-0.5 transition-all">support@peperface.com</a></li>
+                        <li>Phone: <a href="tel:+1234567890" class="footer-link hover:text-yellow-500 hover:-translate-y-0.5 transition-all">+1 (234) 567-890</a></li>
+                        <li>Address: 123 Blog Street, Content City, 45678</li>
+                    </ul>
+                </div>
+                <!-- Social Media -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="transform transition-transform hover:scale-125 hover:brightness-125">
+                            <img src="https://static.vecteezy.com/system/resources/previews/018/930/698/non_2x/facebook-logo-facebook-icon-transparent-free-png.png" alt="Facebook" class="w-6 sm:w-8 h-6 sm:h-8">
+                        </a>
+                        <a href="#" class="transform transition-transform hover:scale-125 hover:brightness-125">
+                            <img src="https://static.vecteezy.com/system/resources/previews/023/986/970/non_2x/linkedin-logo-linkedin-logo-transparent-linkedin-icon-transparent-free-free-png.png" alt="LinkedIn" class="w-6 sm:w-8 h-6 sm:h-8">
+                        </a>
+                        <a href="#" class="transform transition-transform hover:scale-125 hover:brightness-125">
+                            <img src="https://img.icons8.com/ios_filled/512/github.png" alt="GitHub" class="w-6 sm:w-8 h-6 sm:h-8">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 text-center text-gray-300 text-sm sm:text-base">
+                <p>© <span id="current-year"></span> PeperFace | All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="login.js"></script>
 </body>
 </html>
