@@ -16,7 +16,7 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 // Store admin email
-const ADMIN_EMAIL = "admin@peperface.com";
+const ADMIN_EMAIL = "admin@paperface.com";
 
 const dashboardSection = document.getElementById("dashboard-section");
 const postsList = document.getElementById("posts-list");
