@@ -1,126 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PeperFace - Blog Detail</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Detail | PeperFace</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
     .animate-fade-in {
-      animation: fadeIn 0.3s ease-in-out forwards;
+      animation: fadeIn 0.5s ease-in;
     }
-
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
     .skeleton {
       background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
       background-size: 200% 100%;
-      animation: shimmer 1.5s infinite;
+      animation: skeleton-loading 1.5s infinite;
     }
-
-    @keyframes shimmer {
-      0% {
-        background-position: 200% 0;
-      }
-      100% {
-        background-position: -200% 0;
-      }
+    @keyframes skeleton-loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
     }
   </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
-  <div class="max-w-6xl mx-auto p-3 sm:p-4 md:p-6">
-    <!-- Blog Detail Card -->
-    <div id="blog-detail" class="bg-white rounded-lg shadow-md p-3 sm:p-4 space-y-3">
-      <!-- Header Section -->
-      <div>
-        <img
-          id="blog-image"
-          class="w-full max-h-60 sm:max-h-80 object-contain rounded-lg hidden skeleton"
-          alt="Blog Image"
-        />
-        <div class="mt-3">
-          <h1
-            id="blog-title"
-            class="text-lg sm:text-xl md:text-2xl font-bold text-gray-800 skeleton h-6 sm:h-8 w-3/4 rounded"
-          ></h1>
-          <div class="flex flex-wrap items-center mt-1 text-gray-600 text-xs sm:text-sm gap-1">
-            <span>By</span>
-            <span
-              id="author-name"
-              class="ml-1 font-semibold skeleton h-5 w-20 sm:w-32 rounded"
-            ></span>
-            <span class="mx-1">•</span>
-            <span
-              id="post-date"
-              class="skeleton h-5 w-20 sm:w-28 rounded"
-            ></span>
-          </div>
+<body class="bg-gray-100 text-gray-900 font-sans">
+  <header class="bg-gray-800 text-white p-4 sm:p-6 flex flex-col sm:flex-row justify-between items-center fixed w-full z-10">
+    <div class="text-xl sm:text-2xl font-bold mb-2 sm:mb-0">PeperFace</div>
+    <nav>
+      <ul class="flex flex-wrap justify-center sm:justify-between space-x-2 sm:space-x-4 items-center">
+        <div class="flex flex-wrap justify-center space-x-2 sm:space-x-8">
+          <li><a href="../index.html" class="hover:text-yellow-400 text-sm sm:text-base transition-colors">Home</a></li>
+          <li><a href="../BlogPage/Blogs.html" class="hover:text-yellow-400 text-sm sm:text-base transition-colors">Blogs</a></li>
+          <li><a href="#about" class="hover:text-yellow-400 text-sm sm:text-base transition-colors">About</a></li>
+          <li><a href="#contact" class="hover:text-yellow-400 text-sm sm:text-base transition-colors">Contact</a></li>
+        </div>
+        <li>
+          <button id="logout-button" class="bg-red-500 text-white px-3 py-2 rounded hover:bg-red-600 text-sm sm:text-base transition-colors">Logout</button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="pt-24 sm:pt-32 pb-12 sm:pb-16 max-w-4xl mx-auto px-4 sm:px-6 md:px-8">
+    <article class="bg-white p-4 sm:p-6 rounded-lg shadow-md">
+      <h1 id="blog-title" class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-4 skeleton">Loading...</h1>
+      <img id="blog-image" class="w-full max-h-96 object-cover rounded-lg mb-4 hidden skeleton" alt="Blog Image">
+      <div class="flex items-center text-sm sm:text-base text-gray-600 mb-4">
+        <span>By <span id="author-name" class="font-semibold skeleton">Anonymous</span></span>
+        <span class="mx-2">•</span>
+        <span id="post-date" class="skeleton">Loading...</span>
+      </div>
+      <p id="blog-content" class="text-sm sm:text-base md:text-lg text-gray-700 leading-relaxed skeleton">Loading...</p>
+      <div id="blog-actions" class="flex justify-end space-x-2 mt-4"></div>
+      <div class="flex justify-between items-center mt-6">
+        <a id="back-button" href="#" class="text-yellow-500 font-bold text-sm sm:text-base hover:text-yellow-600 transition-colors">← Back to Blogs</a>
+        <div class="flex space-x-4">
+          <button id="like-button" class="flex items-center bg-blue-100 px-3 py-2 rounded-lg hover:bg-blue-200 transition-colors text-sm sm:text-base">
+            👍 <span id="like-count" class="ml-1">0</span>
+          </button>
+          <button id="favorite-button" class="flex items-center bg-red-100 px-3 py-2 rounded-lg hover:bg-red-200 transition-colors text-sm sm:text-base">
+            ❤️ <span id="favorite-count" class="ml-1">0</span>
+          </button>
         </div>
       </div>
+    </article>
+  </main>
 
-      <!-- Back Button -->
-      <div>
-        <button
-          id="back-button"
-          class="text-yellow-500 font-bold text-sm sm:text-base hover:text-yellow-600 transition"
-        >
-          ← Back to Blogs
-        </button>
-      </div>
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 md:px-8 pb-12 sm:pb-16">
+    <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-6">Related Blogs</h2>
+    <div id="related-blogs" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6"></div>
+  </section>
 
-      <!-- Blog Content -->
-      <div
-        id="blog-content"
-        class="text-gray-700 text-sm sm:text-base leading-relaxed skeleton min-h-[6rem]"
-      ></div>
-
-      <!-- Like / Favorite Buttons -->
-      <div class="flex flex-wrap gap-2">
-        <button
-          id="like-button"
-          class="flex items-center space-x-1 bg-blue-100 text-blue-700 px-3 py-1 rounded-lg hover:bg-blue-200 transition text-sm"
-        >
-          <span>👍</span>
-          <span id="like-count">0</span>
-        </button>
-        <button
-          id="favorite-button"
-          class="flex items-center space-x-1 bg-red-100 text-red-700 px-3 py-1 rounded-lg hover:bg-red-200 transition text-sm"
-        >
-          <span>❤️</span>
-          <span id="favorite-count">0</span>
-        </button>
-      </div>
-
-      <!-- Author Actions -->
-      <div id="blog-actions" class="flex flex-wrap gap-2"></div>
-    </div>
-
-    <!-- Related Blogs -->
-    <div class="mt-8">
-      <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-gray-800 mb-4">
-        Related Blogs
-      </h2>
-      <div
-        id="related-blogs"
-        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"
-      >
-        <!-- Cards inserted by JS -->
-      </div>
-    </div>
-  </div>
-
-  <!-- JS -->
-  <script type="module" src="./blog-detail.js"></script>
+  <script type="module" src="blog-detail.js"></script>
 </body>
 </html>

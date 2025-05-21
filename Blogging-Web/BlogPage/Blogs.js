@@ -32,13 +32,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const blogObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
+            if (entry.isIntersecting && !entry.target.classList.contains('visible')) {
                 entry.target.classList.add('visible');
             }
         });
     }, { threshold: 0.1 });
     const observeBlogCards = () => {
-        const blogCards = document.querySelectorAll('.animate-blog-card');
+        const blogCards = document.querySelectorAll('.animate-blog-card:not(.visible)');
         blogCards.forEach(card => blogObserver.observe(card));
     };
     const blogsContainer = document.getElementById('blogs-container');
@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const querySnapshot = await getDocs(blogsQuery);
 
                 if (querySnapshot.empty) {
-                    blogsContainer.innerHTML = "<p class='text-center text-gray-500'>No blogs found</p>";
+                    blogsContainer.innerHTML = "<p class='text-center text-gray-500 col-span-full'>No blogs found</p>";
                     return;
                 }
 
@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
             renderBlogs(filter === 'all' ? allBlogs : allBlogs.filter(blog => blog.postType === filter));
         } catch (error) {
             console.error("Error loading blogs:", error);
-            blogsContainer.innerHTML = "<p class='text-center text-red-500'>Error loading blogs. Please try again later.</p>";
+            blogsContainer.innerHTML = "<p class='text-center text-red-500 col-span-full'>Error loading blogs. Please try again later.</p>";
         }
     }
 
@@ -107,21 +107,21 @@ document.addEventListener("DOMContentLoaded", () => {
         blogsContainer.innerHTML = "";
 
         if (blogs.length === 0) {
-            blogsContainer.innerHTML = "<p class='text-center text-gray-500'>No blogs found for this category</p>";
+            blogsContainer.innerHTML = "<p class='text-center text-gray-500 col-span-full'>No blogs found for this category</p>";
             return;
         }
 
         blogs.forEach((blog) => {
             const blogId = blog.id;
             const blogCard = document.createElement('div');
-            blogCard.className = 'animate-blog-card bg-white p-4 rounded-lg shadow-md hover:scale-105 hover:shadow-xl transition-transform flex-none w-[300px] min-w-[300px]';
+            blogCard.className = 'animate-blog-card bg-white p-4 rounded-lg shadow-md hover:scale-105 hover:shadow-xl transition-transform w-full';
 
             const imageUrl = blog.image || "https://via.placeholder.com/300x200?text=No+Image";
 
             blogCard.innerHTML = `
                 <img src="${imageUrl}" alt="${blog.title}" class="w-full h-48 rounded-lg object-cover" loading="lazy">
-                <h3 class="text-lg font-semibold mt-2 text-gray-800">${blog.title}</h3>
-                <p class="text-base text-gray-600 mt-1">${blog.content.substring(0, 80)}${blog.content.length > 80 ? '...' : ''}</p>
+                <h3 class="text-base sm:text-lg font-semibold mt-2 text-gray-800">${blog.title}</h3>
+                <p class="text-sm sm:text-base text-gray-600 mt-1">${blog.content.substring(0, 80)}${blog.content.length > 80 ? '...' : ''}</p>
                 <div class="flex justify-between items-center mt-2">
                     <span class="text-sm text-gray-500">👍 ${blog.likes || 0}</span>
                     <span class="text-sm text-gray-500">❤️ ${blog.favorites || 0}</span>
@@ -135,6 +135,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             blogsContainer.appendChild(blogCard);
         });
+
+        // Re-observe new cards
+        observeBlogCards();
     }
 
     // Filter bar functionality
@@ -151,4 +154,9 @@ document.addEventListener("DOMContentLoaded", () => {
             loadBlogs(filter);
         });
     });
+
+    // Set default active filter
+    const defaultFilterButton = document.querySelector('#filter-bar button[data-filter="all"]');
+    defaultFilterButton.classList.add('bg-yellow-500', 'text-white');
+    defaultFilterButton.classList.remove('bg-gray-200', 'text-gray-700');
 });

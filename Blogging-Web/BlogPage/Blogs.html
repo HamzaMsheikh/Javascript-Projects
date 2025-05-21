@@ -34,7 +34,6 @@
             transform: scale(1);
             opacity: 1;
         }
-        /* Loader spin */
         .animate-spin-loader {
             border: 4px solid #f3f3f3;
             border-top: 4px solid #f59e0b;
@@ -48,7 +47,6 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        /* Footer link underline effect */
         .footer-link {
             position: relative;
         }
@@ -68,13 +66,13 @@
     </style>
 </head>
 <body class="bg-gray-100 text-gray-900 font-sans">
-    <header class="animate-slide-up bg-gray-800 text-white p-2 sm:p-4 flex justify-between items-center fixed w-full z-10">
-        <div class="text-xl sm:text-2xl font-bold">PeperFace</div>
+    <header class="animate-slide-up bg-gray-800 text-white p-4 sm:p-6 flex flex-col sm:flex-row justify-between items-center fixed w-full z-10">
+        <div class="text-xl sm:text-2xl font-bold mb-2 sm:mb-0">PeperFace</div>
         <nav>
-            <ul class="flex space-x-2 sm:space-x-4">
+            <ul class="flex flex-wrap justify-center space-x-2 sm:space-x-8">
                 <li><a href="../index.html" class="hover:text-yellow-400 text-sm sm:text-base transition-colors">Home</a></li>
                 <li><a href="#" class="hover:text-yellow-400 text-sm sm:text-base transition-colors">Blogs</a></li>
-                <li><a href="#about" class="hover:text-yellow-400 text-sm sm:text-base transition-colors">About</a></li>
+                 <li><a href="#" class="hover:text-yellow-400 text-sm sm:text-base transition-colors">About</a></li>
                 <li><a href="#contact" class="hover:text-yellow-400 text-sm sm:text-base transition-colors">Contact</a></li>
                 <li id="loginNavItem" class="hidden"><a href="../Login-page/login.html" class="bg-yellow-500 px-3 py-2 rounded text-black hover:bg-yellow-600 text-sm sm:text-base transition-colors">Login</a></li>
                 <li id="logoutNavItem"><a href="#" id="logoutButton" class="bg-red-500 px-3 py-2 rounded text-white hover:bg-red-600 text-sm sm:text-base transition-colors">Logout</a></li>
@@ -82,37 +80,43 @@
         </nav>
     </header>
 
-    <!-- All Blogs Section -->
-    <section id="blogs" class="animate-slide-up py-24 sm:py-32 text-center bg-gradient-to-b from-gray-100 to-gray-200">
-        <div class="max-w-7xl mx-auto px-6 sm:px-8">
-            <h2 class="text-2xl sm:text-4xl font-bold text-gray-800 mb-6">All Blogs</h2>
-            <!-- Filter Bar -->
-            <div id="filter-bar" class="animate-filter-bar flex justify-center gap-4 mb-8">
-                <button data-filter="all" class="bg-yellow-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-yellow-600 hover:scale-105 transition-all duration-300 active-filter">All</button>
-                <button data-filter="Technology" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-semibold hover:bg-yellow-600 hover:text-white hover:scale-105 transition-all duration-300">Technology</button>
-                <button data-filter="Lifestyle" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-semibold hover:bg-yellow-600 hover:text-white hover:scale-105 transition-all duration-300">Lifestyle</button>
-                <button data-filter="Health" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-semibold hover:bg-yellow-600 hover:text-white hover:scale-105 transition-all duration-300">Health</button>
+    <section id="blogs" class="animate-slide-up pt-24 sm:pt-32 pb-12 sm:pb-16 text-center bg-gradient-to-b from-gray-100 to-gray-200 min-h-screen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-6">All Blogs</h2>
+            <div id="filter-bar" class="animate-filter-bar flex flex-wrap justify-center gap-2 sm:gap-4 mb-8">
+                <button data-filter="all" class="bg-yellow-500 text-white px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base font-semibold hover:bg-yellow-600 hover:scale-105 transition-all duration-300">All</button>
+                <button data-filter="Technology" class="bg-gray-200 text-gray-700 px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base font-semibold hover:bg-yellow-600 hover:text-white hover:scale-105 transition-all duration-300">Technology</button>
+                <button data-filter="Lifestyle" class="bg-gray-200 text-gray-700 px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base font-semibold hover:bg-yellow-600 hover:text-white hover:scale-105 transition-all duration-300">Lifestyle</button>
+                <button data-filter="Health" class="bg-gray-200 text-gray-700 px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base font-semibold hover:bg-yellow-600 hover:text-white hover:scale-105 transition-all duration-300">Health</button>
+                <button data-filter="Entertainment" class="bg-gray-200 text-gray-700 px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base font-semibold hover:bg-yellow-600 hover:text-white hover:scale-105 transition-all duration-300">Entertainment</button>
+                <button data-filter="Travel" class="bg-gray-200 text-gray-700 px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base font-semibold hover:bg-yellow-600 hover:text-white hover:scale-105 transition-all duration-300">Travel</button>
+                <button data-filter="Food" class="bg-gray-200 text-gray-700 px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base font-semibold hover:bg-yellow-600 hover:text-white hover:scale-105 transition-all duration-300">Food</button>
+                <button data-filter="Education" class="bg-gray-200 text-gray-700 px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base font-semibold hover:bg-yellow-600 hover:text-white hover:scale-105 transition-all duration-300">Education</button>
+                <button data-filter="Finance" class="bg-gray-200 text-gray-700 px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base font-semibold hover:bg-yellow-600 hover:text-white hover:scale-105 transition-all duration-300">Finance</button>
+                <button data-filter="Sports" class="bg-gray-200 text-gray-700 px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base font-semibold hover:bg-yellow-600 hover:text-white hover:scale-105 transition-all duration-300">Sports</button>
+                <button data-filter="Fashion" class="bg-gray-200 text-gray-700 px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base font-semibold hover:bg-yellow-600 hover:text-white hover:scale-105 transition-all duration-300">Fashion</button>
+                <button data-filter="Fitness" class="bg-gray-200 text-gray-700 px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base font-semibold hover:bg-yellow-600 hover:text-white hover:scale-105 transition-all duration-300">Fitness</button>
+                <button data-filter="News" class="bg-gray-200 text-gray-700 px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base font-semibold hover:bg-yellow-600 hover:text-white hover:scale-105 transition-all duration-300">News</button>
+                <button data-filter="Politics" class="bg-gray-200 text-gray-700 px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base font-semibold hover:bg-yellow-600 hover:text-white hover:scale-105 transition-all duration-300">Politics</button>
+                <button data-filter="Other" class="bg-gray-200 text-gray-700 px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base font-semibold hover:bg-yellow-600 hover:text-white hover:scale-105 transition-all duration-300">Other</button>
             </div>
-            <!-- Blog Cards -->
-            <div id="blogs-container" class="flex flex-row gap-6 justify-start overflow-x-auto">
+            <div id="blogs-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 <div class="animate-spin-loader"></div>
             </div>
         </div>
     </section>
 
     <footer class="animate-slide-up bg-gray-800 text-white py-12">
-        <div class="container mx-auto px-6 sm:px-8">
+        <div class="container mx-auto px-4 sm:px-6 md:px-8">
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-                <!-- About Section -->
                 <div>
-                    <h3 class="text-xl font-bold mb-4">About PeperFace</h3>
+                    <h3 class="text-lg sm:text-xl font-bold mb-4">About PeperFace</h3>
                     <p class="text-gray-300 leading-relaxed text-sm sm:text-base">
                         PeperFace is your go-to platform for sharing and discovering insightful blogs on technology, lifestyle, and health. Join our community to read, write, and connect!
                     </p>
                 </div>
-                <!-- Quick Links -->
                 <div>
-                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                    <h3 class="text-lg sm:text-xl font-bold mb-4">Quick Links</h3>
                     <ul class="space-y-2">
                         <li><a href="../index.html" class="footer-link text-gray-300 text-sm sm:text-base hover:text-yellow-500 hover:-translate-y-0.5 transition-all">Home</a></li>
                         <li><a href="#" class="footer-link text-gray-300 text-sm sm:text-base hover:text-yellow-500 hover:-translate-y-0.5 transition-all">Blogs</a></li>
@@ -120,18 +124,16 @@
                         <li><a href="../Login-page/login.html" class="footer-link text-gray-300 text-sm sm:text-base hover:text-yellow-500 hover:-translate-y-0.5 transition-all">Login</a></li>
                     </ul>
                 </div>
-                <!-- Contact Info -->
                 <div>
-                    <h3 class="text-xl font-bold mb-4">Contact Us</h3>
+                    <h3 class="text-lg sm:text-xl font-bold mb-4">Contact Us</h3>
                     <ul class="space-y-2 text-gray-300 text-sm sm:text-base">
                         <li>Email: <a href="mailto:support@peperface.com" class="footer-link hover:text-yellow-500 hover:-translate-y-0.5 transition-all">support@peperface.com</a></li>
-                        <li>Phone: <a href="tel:+1234567890" class="footer-link hover:text-yellow-500 hover:-translate-y-0.5 transition-all">+1 (234) 567-890</a></li>
-                        <li>Address: 123 Blog Street, Content City, 45678</li>
+                        <li>Phone: <a href="tel:+923092075995" class="footer-link hover:text-yellow-500 hover:-translate-y-0.5 transition-all">+92 309 2075995</a></li>
+                        <li>Address: Abdullah Shah Ghazi Goth, Scheme 33, Near Memon Medical Institute Hospital, Karachi, Pakistan</li>
                     </ul>
                 </div>
-                <!-- Social Media -->
                 <div>
-                    <h3 class="text-xl font-bold mb-4">Follow Us</h3>
+                    <h3 class="text-lg sm:text-xl font-bold mb-4">Follow Us</h3>
                     <div class="flex space-x-4">
                         <a href="#" class="transform transition-transform hover:scale-125 hover:brightness-125">
                             <img src="https://static.vecteezy.com/system/resources/previews/018/930/698/non_2x/facebook-logo-facebook-icon-transparent-free-png.png" alt="Facebook" class="w-6 sm:w-8 h-6 sm:h-8">
@@ -151,6 +153,6 @@
         </div>
     </footer>
 
-    <script type="module" src="blogs.js"></script>
+    <script type="module" src="Blogs.js"></script>
 </body>
 </html>

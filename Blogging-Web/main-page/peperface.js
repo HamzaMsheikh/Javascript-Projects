@@ -17,7 +17,7 @@ const db = getFirestore(app);
 
 document.addEventListener("DOMContentLoaded", () => {
     const postButton = document.getElementById("post-blog");
-    const blogFeed = document.getElementById("blog-feed");
+    const blogFeed = document.getElementById("blog-feed-container");
     const imageInput = document.getElementById("blog-image");
     const imagePreview = document.getElementById("image-preview");
     const videoInput = document.getElementById("blog-video");
@@ -25,6 +25,31 @@ document.addEventListener("DOMContentLoaded", () => {
     const logoutButton = document.getElementById("logoutButton");
 
     let currentUser = null;
+
+    // Animations for header, blog form, blog feed, and footer
+    const elementsToAnimate = document.querySelectorAll('.animate-slide-up');
+    const elementObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+    elementsToAnimate.forEach(element => elementObserver.observe(element));
+
+    const blogObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.classList.contains('visible')) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+    const observeBlogCards = () => {
+        const blogCards = document.querySelectorAll('.animate-blog-card:not(.visible)');
+        blogCards.forEach(card => blogObserver.observe(card));
+    };
+    const mutationObserver = new MutationObserver(observeBlogCards);
+    mutationObserver.observe(blogFeed, { childList: true });
 
     // Check auth state
     onAuthStateChanged(auth, (user) => {
@@ -74,12 +99,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Post Blog
-    postButton.addEventListener("click", async () => {
+    postButton.addEventListener("click", async (e) => {
+        e.preventDefault();
         const title = document.getElementById("blog-title").value.trim();
         const content = document.getElementById("blog-content").value.trim();
         const postType = document.getElementById("blog-type").value;
         const image = imagePreview.src && !imagePreview.classList.contains("hidden") ? imagePreview.src : null;
-        const videoData = videoPreview.src && !videoPreview.classList.contains("hidden") ? videoPreview.src : null;
+        const videoData = videoPreview.src && !imagePreview.classList.contains("hidden") ? videoPreview.src : null;
 
         if (title && content) {
             try {
@@ -88,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     content,
                     postType,
                     image,
-                    videoData, // Note: Storing video as base64 can exceed Firestore's 1MB document limit for large files. Consider Firebase Storage for production.
+                    videoData, // Note: Storing video as base64 can exceed Firestore's 1MB document limit. Use Firebase Storage for production.
                     likes: 0,
                     favorites: 0,
                     likedBy: [],
@@ -119,47 +145,53 @@ document.addEventListener("DOMContentLoaded", () => {
         const blogsRef = collection(db, 'blogs');
         
         onSnapshot(blogsRef, (querySnapshot) => {
-            // Clear loader and show blogs
-            blogFeed.innerHTML = "";
+            blogFeed.innerHTML = "<div class='animate-spin-loader'></div>";
             
             if (querySnapshot.empty) {
                 blogFeed.innerHTML = "<p class='text-center text-gray-500'>No blogs found</p>";
                 return;
             }
 
+            blogFeed.innerHTML = "";
             querySnapshot.forEach((doc) => {
                 const blog = doc.data();
                 const blogId = doc.id;
 
-                // Check if current user has liked/favorited this blog
                 const hasLiked = blog.likedBy && blog.likedBy.includes(currentUser.uid);
                 const hasFavorited = blog.favoritedBy && blog.favoritedBy.includes(currentUser.uid);
 
-                const blogElement = document.createElement("div");
-                blogElement.classList.add("blog-card", "bg-white", "p-4", "rounded-lg", "shadow-md", "mb-4");
+                const blogCard = document.createElement("div");
+                blogCard.className = 'animate-blog-card bg-white p-4 rounded-lg shadow-md hover:scale-105 hover:shadow-xl transition-transform w-[300px] min-w-[300px]';
 
-                // Render video if present
-                const videoEmbed = blog.videoData ? `<video src="${blog.videoData}" class="blog-video mt-2 rounded-lg" controls></video>` : "";
+                const imageUrl = blog.image || "https://via.placeholder.com/300x200?text=No+Image";
+                const videoEmbed = blog.videoData ? `<video src="${blog.videoData}" class="w-full h-48 rounded-lg mt-2 object-cover" controls></video>` : "";
 
-                blogElement.innerHTML = `
-                    <div onclick="openBlogDetail('${blogId}')" class="cursor-pointer">
-                        <h3 class="text-lg font-bold hover:underline">${blog.title}</h3>
-                        <span class="inline-block bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full mt-1">${blog.postType}</span>
-                        <p class="text-gray-600 mt-2">${blog.content.substring(0, 100)}${blog.content.length > 100 ? '...' : ''}</p>
-                        ${blog.image ? `<img src="${blog.image}" class="blog-image mt-2 rounded-lg" loading="lazy">` : ""}
-                        ${videoEmbed}
-                    </div>
-                    <div class="flex justify-between items-center mt-3">
-                        <button onclick="event.stopPropagation(); handleLike('${blogId}', ${hasLiked})" class="${hasLiked ? 'text-blue-700' : 'text-blue-500'} hover:text-blue-600">
+                blogCard.innerHTML = `
+                    <img src="${imageUrl}" alt="${blog.title}" class="w-full h-48 rounded-lg object-cover" loading="lazy">
+                    <h3 class="text-lg font-semibold mt-2 text-gray-800">${blog.title}</h3>
+                    <span class="inline-block bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full mt-1">${blog.postType}</span>
+                    <p class="text-base text-gray-600 mt-1">${blog.content.substring(0, 80)}${blog.content.length > 80 ? '...' : ''}</p>
+                    ${videoEmbed}
+                    <div class="flex justify-between items-center mt-2">
+                        <button onclick="event.stopPropagation(); handleLike('${blogId}', ${hasLiked})" class="${hasLiked ? 'text-blue-700' : 'text-blue-500'} hover:text-blue-600 text-sm">
                             👍 ${blog.likes || 0}
                         </button>
-                        <button onclick="event.stopPropagation(); handleFavorite('${blogId}', ${hasFavorited})" class="${hasFavorited ? 'text-red-700' : 'text-red-500'} hover:text-red-600">
+                        <button onclick="event.stopPropagation(); handleFavorite('${blogId}', ${hasFavorited})" class="${hasFavorited ? 'text-red-700' : 'text-red-500'} hover:text-red-600 text-sm">
                             ❤️ ${blog.favorites || 0}
                         </button>
                     </div>
+                    <a href="../BlogPage/blog-detail.html?id=${blogId}" class="text-yellow-500 font-bold mt-2 block text-sm hover:text-yellow-600">Read More</a>
                 `;
-                blogFeed.appendChild(blogElement);
+
+                blogCard.addEventListener('click', () => {
+                    window.location.href = `../BlogPage/blog-detail.html?id=${blogId}`;
+                });
+
+                blogFeed.appendChild(blogCard);
             });
+
+            // Re-observe new cards
+            observeBlogCards();
         });
     }
 
@@ -205,10 +237,5 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error("Error updating favorite: ", error);
             alert("Failed to update favorite. Please try again.");
         }
-    };
-
-    // Open Blog Detail Page
-    window.openBlogDetail = (blogId) => {
-        window.location.href = `../BlogPage/blog-detail.html?id=${blogId}`;
     };
 });

@@ -3,51 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create a Blog | PeperFace</title>
+    <title>Create Blog | PeperFace</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Form animation */
-        .form-field {
-            transform: translateY(20px);
+        /* Custom animations */
+        .animate-slide-up {
+            transform: translateY(100px);
             opacity: 0;
-            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+            transition: transform 0.6s ease-out, opacity 0.6s ease-out;
         }
-        .form-field.visible {
+        .animate-slide-up.visible {
             transform: translateY(0);
             opacity: 1;
         }
-        /* Blog card animation */
-        .blog-card {
+        .animate-blog-card {
             transform: translateY(50px);
             opacity: 0;
             transition: transform 0.6s ease-out, opacity 0.6s ease-out, scale 0.3s ease;
         }
-        .blog-card.visible {
+        .animate-blog-card.visible {
             transform: translateY(0);
             opacity: 1;
         }
-        .blog-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        /* Loader spin */
+        .animate-spin-loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #f59e0b;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
         }
-        /* Footer animation */
-        .footer {
-            transform: translateY(50px);
-            opacity: 0;
-            transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-        .footer.visible {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        /* Footer link hover effects */
+        /* Footer link underline effect */
         .footer-link {
             position: relative;
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
-        .footer-link:hover {
-            color: #f59e0b;
-            transform: translateY(-2px);
         }
         .footer-link::after {
             content: '';
@@ -62,205 +56,122 @@
         .footer-link:hover::after {
             width: 100%;
         }
-        /* Social icon hover effects */
-        .social-icon {
-            transition: transform 0.3s ease, filter 0.3s ease;
-        }
-        .social-icon:hover {
-            transform: scale(1.2);
-            filter: brightness(1.2);
-        }
-        /* Skeleton loading */
-        .skeleton {
-            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-        }
-        @keyframes shimmer {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-        /* Image and video styling */
-        .blog-image {
-            width: 100%;
-            max-height: 300px;
-            object-fit: contain;
-            object-position: center;
-        }
-        .blog-video {
-            width: 100%;
-            max-height: 300px;
-            aspect-ratio: 16 / 9;
-        }
-        /* Loader styling */
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #f59e0b;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900 font-sans">
-    <header class="bg-gray-800 text-white p-4 flex justify-between items-center">
-        <div class="text-2xl font-bold">PeperFace</div>
+<body class="bg-gray-100 text-gray-900 font-sans">
+    <header class="animate-slide-up bg-gray-800 text-white p-2 sm:p-4 flex justify-between items-center fixed w-full z-10">
+        <div class="text-xl sm:text-2xl font-bold">PeperFace</div>
         <nav>
-            <ul class="flex space-x-4">
-                <li><a href="../index.html" class="hover:text-yellow-400">Home</a></li>
-                <li><a href="#blog" class="hover:text-yellow-400">Blogs</a></li>
-                <li><a href="#contact" class="hover:text-yellow-400">Contact</a></li>
-                <li><a href="#" id="logoutButton" class="bg-red-500 px-3 py-2 rounded text-white hover:bg-red-600">Logout</a></li>
+            <ul class="flex space-x-2 sm:space-x-8">
+                <li><a href="../index.html" class="hover:text-yellow-400 text-sm sm:text-base transition-colors">Home</a></li>
+                <li><a href="../BlogPage/blogs.html" class="hover:text-yellow-400 text-sm sm:text-base transition-colors">Blogs</a></li>
+                <li><a href="#about" class="hover:text-yellow-400 text-sm sm:text-base transition-colors">About</a></li>
+                <li><a href="#contact" class="hover:text-yellow-400 text-sm sm:text-base transition-colors">Contact</a></li>
+                <li><a href="#" id="logoutButton" class="bg-red-500 px-3 py-2 rounded text-white hover:bg-red-600 text-sm sm:text-base transition-colors">Logout</a></li>
             </ul>
         </nav>
     </header>
 
-    <main class="container mx-auto px-4 py-16">
-        <section class="bg-white p-6 rounded-lg shadow-lg mb-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Create a Blog</h2>
-            <div class="max-w-2xl mx-auto">
-                <div class="mb-4 form-field">
+    <section class="animate-slide-up py-24 sm:py-32 bg-gray-200">
+        <div class="max-w-4xl mx-auto px-6 sm:px-8">
+            <h2 class="text-2xl sm:text-4xl font-bold text-gray-800 mb-6 text-center">Create a Blog</h2>
+            <form id="blog-form" class="space-y-6 bg-white p-6 rounded-lg shadow-md">
+                <div>
                     <label for="blog-title" class="block text-sm font-medium text-gray-700">Title</label>
-                    <input type="text" id="blog-title" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500" placeholder="Enter blog title">
+                    <input type="text" id="blog-title" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500 hover:border-yellow-500 hover:shadow-md transition-all duration-300" placeholder="Enter blog title" required>
                 </div>
-                <div class="mb-4 form-field">
+                <div>
                     <label for="blog-content" class="block text-sm font-medium text-gray-700">Content</label>
-                    <textarea id="blog-content" rows="6" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500" placeholder="Write your blog content"></textarea>
+                    <textarea id="blog-content" rows="6" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500 hover:border-yellow-500 hover:shadow-md transition-all duration-300" placeholder="Write your blog content" required></textarea>
                 </div>
-                <div class="mb-4 form-field">
+                <div>
                     <label for="blog-type" class="block text-sm font-medium text-gray-700">Post Type</label>
-                    <select id="blog-type" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500">
+                    <select id="blog-type" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500 hover:border-yellow-500 hover:shadow-md transition-all duration-300">
                         <option value="Technology">Technology</option>
                         <option value="Lifestyle">Lifestyle</option>
                         <option value="Health">Health</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Travel">Travel</option>
+                        <option value="Food">Food</option>
+                        <option value="Education">Education</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Fashion">Fashion</option>
+                        <option value="Fitness">Fitness</option>
+                        <option value="News">News</option>
+                        <option value="Politics">Politics</option>
+                        <option value="Other">Other</option>
                     </select>
                 </div>
-                <div class="mb-4 form-field">
+                <div>
                     <label for="blog-image" class="block text-sm font-medium text-gray-700">Image (Optional)</label>
-                    <input type="file" id="blog-image" accept="image/*" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg">
-                    <img id="image-preview" class="hidden mt-2 w-full max-h-60 object-cover rounded-lg" alt="Image Preview">
+                    <input type="file" id="blog-image" accept="image/*" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-yellow-500 file:text-white file:hover:bg-yellow-600 transition-all duration-300">
+                    <img id="image-preview" class="hidden mt-2 w-full h-48 object-cover rounded-lg" alt="Image Preview">
                 </div>
-                <div class="mb-4 form-field">
+                <div>
                     <label for="blog-video" class="block text-sm font-medium text-gray-700">Video (Optional)</label>
-                    <input type="file" id="blog-video" accept="video/*" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg">
-                    <video id="video-preview" class="hidden mt-2 w-full max-h-60 rounded-lg" controls></video>
+                    <input type="file" id="blog-video" accept="video/*" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-yellow-500 file:text-white file:hover:bg-yellow-600 transition-all duration-300">
+                    <video id="video-preview" class="hidden mt-2 w-full h-48 rounded-lg" controls></video>
                 </div>
-                <button id="post-blog" class="w-full bg-yellow-500 text-black px-6 py-3 rounded-lg font-semibold hover:bg-yellow-600 form-field">Post Blog</button>
-            </div>
-        </section>
+                <button id="post-blog" type="submit" class="w-full bg-yellow-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-yellow-600 hover:scale-105 hover:shadow-lg transition-all duration-300">Post Blog</button>
+            </form>
+        </div>
+    </section>
 
-        <section id="blog">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Latest Blogs</h2>
-            <div id="blog-feed" class="grid gap-6">
-                <div class="loader"></div>
-            </div>
-        </section>
-    </main>
+    <section id="blog-feed" class="animate-slide-up py-12 sm:py-16 text-center bg-white">
+        <h2 class="text-2xl sm:text-4xl font-bold text-gray-800 mb-6">Latest Blogs</h2>
+        <div id="blog-feed-container" class="max-w-7xl mx-auto px-6 sm:px-8 flex flex-wrap gap-6 justify-center">
+            <div class="animate-spin-loader"></div>
+        </div>
+    </section>
 
-    <footer class="footer bg-gray-800 text-white py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <!-- About Section -->
+    <footer class="animate-slide-up bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6 sm:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
                 <div>
                     <h3 class="text-xl font-bold mb-4">About PeperFace</h3>
-                    <p class="text-gray-300 leading-relaxed">
+                    <p class="text-gray-300 leading-relaxed text-sm sm:text-base">
                         PeperFace is your go-to platform for sharing and discovering insightful blogs on technology, lifestyle, and health. Join our community to read, write, and connect!
                     </p>
                 </div>
-                <!-- Quick Links -->
                 <div>
                     <h3 class="text-xl font-bold mb-4">Quick Links</h3>
                     <ul class="space-y-2">
-                        <li><a href="../index.html" class="footer-link text-gray-300">Home</a></li>
-                        <li><a href="#blog" class="footer-link text-gray-300">Blogs</a></li>
-                        <li><a href="#contact" class="footer-link text-gray-300">Contact</a></li>
-                        <li><a href="../Login-page/login.html" class="footer-link text-gray-300">Login</a></li>
+                        <li><a href="../index.html" class="footer-link text-gray-300 text-sm sm:text-base hover:text-yellow-500 hover:-translate-y-0.5 transition-all">Home</a></li>
+                        <li><a href="../BlogPage/blogs.html" class="footer-link text-gray-300 text-sm sm:text-base hover:text-yellow-500 hover:-translate-y-0.5 transition-all">Blogs</a></li>
+                        <li><a href="#contact" class="footer-link text-gray-300 text-sm sm:text-base hover:text-yellow-500 hover:-translate-y-0.5 transition-all">Contact</a></li>
+                        <li><a href="../Login-page/login.html" class="footer-link text-gray-300 text-sm sm:text-base hover:text-yellow-500 hover:-translate-y-0.5 transition-all">Login</a></li>
                     </ul>
                 </div>
-                <!-- Contact Info -->
                 <div>
                     <h3 class="text-xl font-bold mb-4">Contact Us</h3>
-                    <ul class="space-y-2 text-gray-300">
-                        <li>Email: <a href="mailto:support@peperface.com" class="footer-link">support@peperface.com</a></li>
-                        <li>Phone: <a href="tel:+1234567890" class="footer-link">+1 (234) 567-890</a></li>
-                        <li>Address: 123 Blog Street, Content City, 45678</li>
+                    <ul class="space-y-2 text-gray-300 text-sm sm:text-base">
+                        <li>Email: <a href="mailto:hamzasheikh7745@gmail.com" class="footer-link hover:text-yellow-500 hover:-translate-y-0.5 transition-all">hamzasheikh7745@gmail.com</a></li>
+                        <li>Phone: <a href="tel:+923092075995" class="footer-link hover:text-yellow-500 hover:-translate-y-0.5 transition-all">+(92) 309-2075995</a></li>
+                        <li>Address: Abdullah Shah Ghazi Goth, Scheme 33, Near Memon Medical Institute Hospitak, Karachi Pakistan.</li>
                     </ul>
                 </div>
-                <!-- Social Media -->
                 <div>
                     <h3 class="text-xl font-bold mb-4">Follow Us</h3>
                     <div class="flex space-x-4">
-                        <a href="#" class="social-icon">
-                            <img src="https://static.vecteezy.com/system/resources/previews/018/930/698/non_2x/facebook-logo-facebook-icon-transparent-free-png.png" alt="Facebook" class="w-8 h-8">
+                        <a href="#" class="transform transition-transform hover:scale-125 hover:brightness-125">
+                            <img src="https://static.vecteezy.com/system/resources/previews/018/930/698/non_2x/facebook-logo-facebook-icon-transparent-free-png.png" alt="Facebook" class="w-6 sm:w-8 h-6 sm:h-8">
                         </a>
-                        <a href="#" class="social-icon">
-                            <img src="https://static.vecteezy.com/system/resources/previews/023/986/970/non_2x/linkedin-logo-linkedin-logo-transparent-linkedin-icon-transparent-free-free-png.png" alt="LinkedIn" class="w-8 h-8">
+                        <a href="#" class="transform transition-transform hover:scale-125 hover:brightness-125">
+                            <img src="https://static.vecteezy.com/system/resources/previews/023/986/970/non_2x/linkedin-logo-linkedin-logo-transparent-linkedin-icon-transparent-free-free-png.png" alt="LinkedIn" class="w-6 sm:w-8 h-6 sm:h-8">
                         </a>
-                        <a href="#" class="social-icon">
-                            <img src="https://img.icons8.com/ios_filled/512/github.png" alt="Github" class="w-8 h-8">
+                        <a href="#" class="transform transition-transform hover:scale-125 hover:brightness-125">
+                            <img src="https://img.icons8.com/ios_filled/512/github.png" alt="GitHub" class="w-6 sm:w-8 h-6 sm:h-8">
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="mt-8 text-center text-gray-300">
-                <p>&copy; <span id="current-year"></span> PeperFace | All Rights Reserved</p>
+            <div class="mt-8 text-center text-gray-300 text-sm sm:text-base">
+                <p>© <span id="current-year"></span> PeperFace | All Rights Reserved</p>
             </div>
         </div>
     </footer>
 
     <script type="module" src="peperface.js"></script>
-    <script>
-        // Set current year in footer
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-
-        // Form, blog card, and footer animations
-        document.addEventListener('DOMContentLoaded', () => {
-            // Form fields
-            const formFields = document.querySelectorAll('.form-field');
-            const formObserver = new IntersectionObserver((entries) => {
-                entries.forEach((entry, index) => {
-                    if (entry.isIntersecting) {
-                        setTimeout(() => {
-                            entry.target.classList.add('visible');
-                        }, index * 100); // Staggered animation
-                    }
-                });
-            }, { threshold: 0.1 });
-            formFields.forEach(field => formObserver.observe(field));
-
-            // Blog cards
-            const blogObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-            const observeBlogCards = () => {
-                const blogCards = document.querySelectorAll('.blog-card');
-                blogCards.forEach(card => blogObserver.observe(card));
-            };
-            const blogFeed = document.getElementById('blog-feed');
-            const mutationObserver = new MutationObserver(observeBlogCards);
-            mutationObserver.observe(blogFeed, { childList: true });
-
-            // Footer
-            const footer = document.querySelector('.footer');
-            const footerObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-            footerObserver.observe(footer);
-        });
-    </script>
 </body>
 </html>
