@@ -159,4 +159,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const defaultFilterButton = document.querySelector('#filter-bar button[data-filter="all"]');
     defaultFilterButton.classList.add('bg-yellow-500', 'text-white');
     defaultFilterButton.classList.remove('bg-gray-200', 'text-gray-700');
+
+    // Navbar toggle logic
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (hamburger && mobileMenu) {
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+    }
+
+    // Sync mobile menu Login/Logout with desktop
+    const loginNavItemMobile = document.getElementById('loginNavItemMobile');
+    const logoutNavItemMobile = document.getElementById('logoutNavItemMobile');
+    const observer = new MutationObserver(() => {
+        if (loginNavItemMobile && logoutNavItemMobile) {
+            loginNavItemMobile.classList.toggle('hidden', loginNavItem.classList.contains('hidden'));
+            logoutNavItemMobile.classList.toggle('hidden', logoutNavItem.classList.contains('hidden'));
+        }
+    });
+    if (loginNavItem && logoutNavItem) {
+        observer.observe(loginNavItem, { attributes: true });
+        observer.observe(logoutNavItem, { attributes: true });
+    }
 });

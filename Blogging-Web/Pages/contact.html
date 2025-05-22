@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | PeperFace</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Animations */
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0;
+        }
+        .animate-slide-up {
+            animation: slideUp 0.8s ease-out forwards;
+            transform: translateY(50px);
+            opacity: 0;
+        }
+        .animate-scale-in {
+            animation: scaleIn 0.6s ease-out forwards;
+            transform: scale(0.9);
+            opacity: 0;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes scaleIn {
+            to { transform: scale(1); opacity: 1; }
+        }
+        /* Delay for staggered animations */
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        /* Navbar slide-down animation */
+        .mobile-menu {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .mobile-menu.open {
+            max-height: 400px;
+            opacity: 1;
+        }
+        /* Hover effect for buttons and links */
+        .contact-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .contact-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #f59e0b;
+            transition: width 0.3s ease;
+        }
+        .contact-link:hover::after {
+            width: 100%;
+        }
+        /* FAQ accordion */
+        .faq-item {
+            transition: all 0.3s ease;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .faq-answer.open {
+            max-height: 200px; /* Adjust based on content */
+        }
+        /* Social media icons hover */
+        .social-icon {
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+        .social-icon:hover {
+            transform: scale(1.2);
+            filter: brightness(1.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans">
+    <header class="bg-gray-800 text-white p-2 sm:p-4 fixed top-0 left-0 w-full z-10 flex justify-between items-center">
+        <div class="text-xl sm:text-2xl font-bold">PeperFace</div>
+        <!-- Hamburger Icon for Mobile -->
+        <button id="hamburger" class="sm:hidden text-white focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+        <!-- Navbar Links -->
+        <nav class="hidden sm:block">
+            <ul class="flex space-x-2 sm:space-x-8">
+                <li><a href="../index.html" class="hover:text-yellow-400 text-sm sm:text-base transition-colors">Home</a></li>
+                <li><a href="../BlogPage/Blogs.html" class="hover:text-yellow-400 text-sm sm:text-base transition-colors">Blogs</a></li>
+                <li><a href="./about.html" class="hover:text-yellow-400 text-sm sm:text-base transition-colors">About</a></li>
+                <li><a href="#" class="hover:text-yellow-400 text-sm sm:text-base transition-colors">Contact</a></li>
+                <li id="loginNavItem" class="hidden"><a href="../Login-page/login.html" class="bg-yellow-500 px-3 py-2 rounded text-black hover:bg-yellow-600 text-sm sm:text-base transition-colors">Login</a></li>
+                <li id="logoutNavItem"><a href="#" id="logoutButton" class="bg-red-500 px-3 py-2 rounded text-white hover:bg-red-600 text-sm sm:text-base transition-colors">Logout</a></li>
+            </ul>
+        </nav>
+        <!-- Mobile Menu -->
+        <nav id="mobile-menu" class="mobile-menu sm:hidden w-full absolute top-full left-0 bg-gray-800">
+            <ul class="flex flex-col space-y-2 p-4">
+                <li><a href="../index.html" class="hover:text-yellow-400 text-sm transition-colors block py-2">Home</a></li>
+                <li><a href="../BlogPage/Blogs.html" class="hover:text-yellow-400 text-sm transition-colors block py-2">Blogs</a></li>
+                <li><a href="../about.html" class="hover:text-yellow-400 text-sm transition-colors block py-2">About</a></li>
+                <li><a href="#" class="hover:text-yellow-400 text-sm transition-colors block py-2">Contact</a></li>
+                <li id="loginNavItemMobile" class="hidden"><a href="../Login-page/login.html" class="bg-yellow-500 px-3 py-2 rounded text-black hover:bg-yellow-600 text-sm transition-colors block">Login</a></li>
+                <li id="logoutNavItemMobile"><a href="#" id="logoutButtonMobile" class="bg-red-500 px-3 py-2 rounded text-white hover:bg-red-600 text-sm transition-colors block">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="pt-24 sm:pt-32 pb-12 sm:pb-16">
+        <!-- Hero Section -->
+        <section class="bg-gradient-to-r from-yellow-100 to-gray-100 py-16 sm:py-20 text-center">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 animate-fade-in delay-1">Contact PeperFace</h1>
+                <p class="mt-4 text-lg sm:text-xl text-gray-600 animate-fade-in delay-2">
+                    We’d love to hear from you! Reach out with your questions, feedback, or collaboration ideas.
+                </p>
+            </div>
+        </section>
+
+        <!-- Contact Form and Info -->
+        <section class="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Contact Form -->
+                <div class="bg-white p-6 sm:p-8 rounded-lg shadow-md animate-slide-up delay-1">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-6">Send Us a Message</h2>
+                    <div id="contact-form" class="space-y-4">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                            <input type="text" id="name" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500" placeholder="Your Name">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" id="email" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500" placeholder="Your Email">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                            <textarea id="message" rows="4" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500" placeholder="Your Message"></textarea>
+                        </div>
+                        <button id="submit-button" class="w-full bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition-colors">Send Message</button>
+                    </div>
+                    <p id="form-message" class="mt-4 text-center text-sm text-gray-600 hidden"></p>
+                </div>
+                <!-- Contact Info -->
+                <div class="animate-slide-up delay-2">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-6">Contact Information</h2>
+                    <ul class="space-y-4 text-gray-600">
+                        <li>
+                            <strong>Email:</strong>
+                            <a href="mailto:support@peperface.com" class="contact-link hover:text-yellow-500">hamzasheikh7745@gmail.com</a>
+                        </li>
+                        <li>
+                            <strong>Phone:</strong>
+                            <a href="tel:+923092075995" class="contact-link hover:text-yellow-500">+92 309 2075995</a>
+                        </li>
+                        <li>
+                            <strong>Address:</strong>
+                            <span>Abdullah Shah Ghazi Goth, Scheme 33, Near Memon Medical Institute Hospital, Karachi, Pakistan</span>
+                        </li>
+                    </ul>
+                    <!-- Social Media Links -->
+                    <div class="mt-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">Follow Us</h3>
+                        <div class="flex space-x-4">
+                            <a href="#" class="social-icon">
+                                <img src="https://static.vecteezy.com/system/resources/previews/018/930/698/non_2x/facebook-logo-facebook-icon-transparent-free-png.png" alt="Facebook" class="w-6 sm:w-8 h-6 sm:h-8">
+                            </a>
+                            <a href="#" class="social-icon">
+                                <img src="https://static.vecteezy.com/system/resources/previews/023/986/970/non_2x/linkedin-logo-linkedin-logo-transparent-linkedin-icon-transparent-free-free-png.png" alt="LinkedIn" class="w-6 sm:w-8 h-6 sm:h-8">
+                            </a>
+                            <a href="#" class="social-icon">
+                                <img src="https://img.icons8.com/ios_filled/512/github.png" alt="GitHub" class="w-6 sm:w-8 h-6 sm:h-8">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section class="bg-gray-100 py-12 sm:py-16">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6">
+                <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 text-center mb-8 animate-slide-up">Find Us</h2>
+                <div class="animate-scale-in delay-1">
+                    <!-- Placeholder for Google Maps embed -->
+                    <iframe class="w-full h-64 sm:h-96 rounded-lg shadow-md" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3618.665463087246!2d67.15753331500145!3d24.907314484032776!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb339b7b7f7b7d1%3A0x3f1b6c8e7e5a1e5d!2sMemon%20Medical%20Institute%20Hospital!5e0!3m2!1sen!2s!4v1698261234567!5m2!1sen!2s" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+            <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 text-center mb-8 animate-slide-up">Frequently Asked Questions</h2>
+            <div class="space-y-4 animate-fade-in delay-1">
+                <div class="faq-item bg-white p-4 rounded-lg shadow-md">
+                    <button class="faq-toggle w-full text-left text-lg font-semibold text-gray-800 flex justify-between items-center">
+                        How can I submit a blog?
+                        <span class="text-yellow-500">▼</span>
+                    </button>
+                    <div class="faq-answer mt-2 text-gray-600">
+                        <p>You can submit a blog by signing up or logging in to your PeperFace account, navigating to the Blogs section, and using the "Create Blog" option. Follow the prompts to add your title, content, and category, then submit for review.</p>
+                    </div>
+                </div>
+                <div class="faq-item bg-white p-4 rounded-lg shadow-md">
+                    <button class="faq-toggle w-full text-left text-lg font-semibold text-gray-800 flex justify-between items-center">
+                        What topics can I write about?
+                        <span class="text-yellow-500">▼</span>
+                    </button>
+                    <div class="faq-answer mt-2 text-gray-600">
+                        <p>We welcome blogs on a wide range of topics including Technology, Lifestyle, Health, Entertainment, Travel, Food, Education, Finance, Sports, Fashion, Fitness, News, Politics, and more. Choose a category that best fits your content!</p>
+                    </div>
+                </div>
+                <div class="faq-item bg-white p-4 rounded-lg shadow-md">
+                    <button class="faq-toggle w-full text-left text-lg font-semibold text-gray-800 flex justify-between items-center">
+                        How can I collaborate with PeperFace?
+                        <span class="text-yellow-500">▼</span>
+                    </button>
+                    <div class="faq-answer mt-2 text-gray-600">
+                        <p>If you’re interested in collaborating, please reach out via email at support@peperface.com with your proposal. We’re always excited to work with creators, brands, and organizations that share our vision.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="animate-footer bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6 sm:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+                <!-- About Section -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">About PeperFace</h3>
+                    <p class="text-gray-300 leading-relaxed text-sm sm:text-base">
+                        PeperFace is your go-to platform for sharing and discovering insightful blogs on technology, lifestyle, and health. Join our community to read, write, and connect!
+                    </p>
+                </div>
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="../index.html" class="footer-link text-gray-300 text-sm sm:text-base hover:text-yellow-500 hover:-translate-y-0.5 transition-all">Home</a></li>
+                        <li><a href="../main-page/peperface.html" class="footer-link text-gray-300 text-sm sm:text-base hover:text-yellow-500 hover:-translate-y-0.5 transition-all">Create Blog</a></li>
+                         <li><a href="./about.html" class="footer-link text-gray-300 text-sm sm:text-base hover:text-yellow-500 hover:-translate-y-0.5 transition-all">About</a></li>
+                        <li><a href="#" class="footer-link text-gray-300 text-sm sm:text-base hover:text-yellow-500 hover:-translate-y-0.5 transition-all">Contact</a></li>
+                        <li><a href="../Login-page/login.html" class="footer-link text-gray-300 text-sm sm:text-base hover:text-yellow-500 hover:-translate-y-0.5 transition-all">Login</a></li>
+                    </ul>
+                </div>
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Contact Us</h3>
+                    <ul class="space-y-2 text-gray-300 text-sm sm:text-base">
+                        <li>Email: <a href="mailto:hamzasheikh7745@gmail.com" class="footer-link hover:text-yellow-500 hover:-translate-y-0.5 transition-all">hamzasheikh7745@gmail.com</a></li>
+                        <li>Phone: <a href="tel:+923092075995" class="footer-link hover:text-yellow-500 hover:-translate-y-0.5 transition-all">+(92) 309-2075995</a></li>
+                        <li>Address: Abdullah Shah Ghazi Goth, Scheme 33, Near Memon Medical Institute Hospitak, Karachi Pakistan.</li>
+                    </ul>
+                </div>
+                <!-- Social Media -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="transform transition-transform hover:scale-125 hover:brightness-125">
+                            <img src="https://static.vecteezy.com/system/resources/previews/018/930/698/non_2x/facebook-logo-facebook-icon-transparent-free-png.png" alt="Facebook" class="w-6 sm:w-8 h-6 sm:h-8">
+                        </a>
+                        <a href="#" class="transform transition-transform hover:scale-125 hover:brightness-125">
+                            <img src="https://static.vecteezy.com/system/resources/previews/023/986/970/non_2x/linkedin-logo-linkedin-logo-transparent-linkedin-icon-transparent-free-free-png.png" alt="LinkedIn" class="w-6 sm:w-8 h-6 sm:h-8">
+                        </a>
+                        <a href="#" class="transform transition-transform hover:scale-125 hover:brightness-125">
+                            <img src="https://img.icons8.com/ios_filled/512/github.png" alt="GitHub" class="w-6 sm:w-8 h-6 sm:h-8">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 text-center text-gray-300 text-sm sm:text-base">
+                <p>© <span id="current-year"></span> PeperFace | All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="contact.js"></script>
+</body>
+</html>

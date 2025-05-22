@@ -1,3 +1,7 @@
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,19 +79,48 @@
         .footer-link:hover::after {
             width: 100%;
         }
+        /* Navbar slide-down animation */
+        .mobile-menu {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .mobile-menu.open {
+            max-height: 400px; /* Adjusted for menu content */
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-900 font-sans">
-    <header class="bg-gray-800 text-white p-2 sm:p-4 flex justify-between items-center fixed w-full z-10">
+    <header class="bg-gray-800 text-white p-2 sm:p-4 fixed top-0 left-0 w-full z-10 flex justify-between items-center">
         <div class="text-xl sm:text-2xl font-bold">PeperFace</div>
-        <nav>
+        <!-- Hamburger Icon for Mobile -->
+        <button id="hamburger" class="sm:hidden text-white focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+        <!-- Navbar Links -->
+        <nav class="hidden sm:block">
             <ul class="flex space-x-2 sm:space-x-8">
                 <li><a href="#" class="hover:text-yellow-400 text-sm sm:text-base transition-colors">Home</a></li>
                 <li><a href="./BlogPage/Blogs.html" class="hover:text-yellow-400 text-sm sm:text-base transition-colors">Blogs</a></li>
-                <li><a href="#about" class="hover:text-yellow-400 text-sm sm:text-base transition-colors">About</a></li>
-                <li><a href="#contact" class="hover:text-yellow-400 text-sm sm:text-base transition-colors">Contact</a></li>
+                <li><a href="./Pages/about.html" class="hover:text-yellow-400 text-sm sm:text-base transition-colors">About</a></li>
+                <li><a href="./Pages/contact.html" class="hover:text-yellow-400 text-sm sm:text-base transition-colors">Contact</a></li>
                 <li id="loginNavItem"><a href="./Login-page/login.html" class="bg-yellow-500 px-3 py-2 rounded text-black hover:bg-yellow-600 text-sm sm:text-base transition-colors">Login</a></li>
                 <li id="logoutNavItem" class="hidden"><a href="#" id="logoutButton" class="bg-red-500 px-3 py-2 rounded text-white hover:bg-red-600 text-sm sm:text-base transition-colors">Logout</a></li>
+            </ul>
+        </nav>
+        <!-- Mobile Menu -->
+        <nav id="mobile-menu" class="mobile-menu sm:hidden w-full absolute top-full left-0 bg-gray-800">
+            <ul class="flex flex-col space-y-2 p-4">
+                <li><a href="#" class="hover:text-yellow-400 text-sm transition-colors block py-2">Home</a></li>
+                <li><a href="./BlogPage/Blogs.html" class="hover:text-yellow-400 text-sm transition-colors block py-2">Blogs</a></li>
+                <li><a href="#about" class="hover:text-yellow-400 text-sm transition-colors block py-2">About</a></li>
+                <li><a href="./Pages/contact.html" class="hover:text-yellow-400 text-sm transition-colors block py-2">Contact</a></li>
+                <li id="loginNavItemMobile"><a href="./Login-page/login.html" class="bg-yellow-500 px-3 py-2 rounded text-black hover:bg-yellow-600 text-sm transition-colors block">Login</a></li>
+                <li id="logoutNavItemMobile" class="hidden"><a href="#" id="logoutButtonMobile" class="bg-red-500 px-3 py-2 rounded text-white hover:bg-red-600 text-sm transition-colors block">Logout</a></li>
             </ul>
         </nav>
     </header>
@@ -174,7 +207,8 @@
                     <ul class="space-y-2">
                         <li><a href="#" class="footer-link text-gray-300 text-sm sm:text-base hover:text-yellow-500 hover:-translate-y-0.5 transition-all">Home</a></li>
                         <li><a href="./main-page/peperface.html" class="footer-link text-gray-300 text-sm sm:text-base hover:text-yellow-500 hover:-translate-y-0.5 transition-all">Create Blog</a></li>
-                        <li><a href="#contact" class="footer-link text-gray-300 text-sm sm:text-base hover:text-yellow-500 hover:-translate-y-0.5 transition-all">Contact</a></li>
+                         <li><a href="../Pages/about.html" class="footer-link text-gray-300 text-sm sm:text-base hover:text-yellow-500 hover:-translate-y-0.5 transition-all">About</a></li>
+                        <li><a href="./Pages/contact.html" class="footer-link text-gray-300 text-sm sm:text-base hover:text-yellow-500 hover:-translate-y-0.5 transition-all">Contact</a></li>
                         <li><a href="./Login-page/login.html" class="footer-link text-gray-300 text-sm sm:text-base hover:text-yellow-500 hover:-translate-y-0.5 transition-all">Login</a></li>
                     </ul>
                 </div>
