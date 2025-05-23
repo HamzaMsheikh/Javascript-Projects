@@ -3,25 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Portal | PeperFace</title>
+    <title>Admin Dashboard | PeperFace</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Animations */
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0;
+        }
+        .animate-slide-up {
+            animation: slideUp 0.8s ease-out forwards;
+            transform: translateY(50px);
+            opacity: 0;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            to { transform: translateY(0); opacity: 1; }
+        }
+        /* Sidebar transition */
+        .sidebar {
+            transition: transform 0.3s ease-in-out;
+            width: 260px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            z-index: 40;
+            background-color: #1f2937;
+        }
+        .sidebar.close {
+            transform: translateX(-100%);
+        }
+        /* Overlay for mobile when sidebar is open */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 30;
+        }
+        .sidebar.close + .sidebar-overlay,
+        .sidebar-overlay.active {
+            display: block;
+        }
+        /* Card hover effect */
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 200px;
+            }
+            main {
+                margin-left: 0;
+            }
+            .sidebar.close + main {
+                margin-left: 0;
+            }
+        }
+        @media (max-width: 640px) {
+            .sidebar {
+                width: 75%;
+            }
+            .sidebar.close {
+                transform: translateX(-100%);
+            }
+            main {
+                padding: 1rem;
+            }
+            .table-responsive {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .table-responsive table {
+                min-width: 600px;
+            }
+            .dashboard-grid {
+                grid-template-columns: 1fr !important;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+            h2 {
+                font-size: 1.25rem;
+            }
+            .card-hover {
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
-    <!-- Admin Dashboard -->
-    <div id="dashboard-section" class="container mx-auto p-4">
-        <h1 class="text-3xl font-bold mb-6">Admin Portal - Manage Posts</h1>
-        <button id="logout-button" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 mb-4">Logout</button>
-        <div id="posts-list" class="bg-white p-6 rounded-lg shadow-md">
-            <h2 class="text-2xl font-bold mb-4">All Posts</h2>
-            <p>Loading posts...</p>
-        </div>
-    </div>
+<body class="bg-gray-100 font-sans text-gray-800">
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js"></script>
-    <!-- JavaScript file -->
+    <!-- Sidebar -->
+    <aside class="bg-gray-800 text-white space-y-6 py-6 px-4 fixed h-full z-40 sidebar transition-transform duration-300 ease-in-out close" id="sidebar">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-bold">Admin Panel</h2>
+            <button id="close-sidebar" class="text-white hover:text-gray-300 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <nav>
+            <ul class="space-y-2">
+                <li><a href="#blogs" class="block py-2 px-4 hover:bg-gray-700 rounded">Manage Blogs</a></li>
+                <li><a href="#users" class="block py-2 px-4 hover:bg-gray-700 rounded">Manage Users</a></li>
+                <li><a href="#messages" class="block py-2 px-4 hover:bg-gray-700 rounded">Contact Messages</a></li>
+                <li><a href="#analytics" class="block py-2 px-4 hover:bg-gray-700 rounded">Analytics</a></li>
+                <li><a href="../index.html" class="block py-2 px-4 hover:bg-gray-700 rounded">Back to Site</a></li>
+                <li><a href="#" id="logout" class="block py-2 px-4 hover:bg-red-700 rounded text-center">Logout</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="p-4 sm:p-6 transition-all duration-300">
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-6">
+            <h1 class="text-xl sm:text-3xl font-bold animate-fade-in">Admin Dashboard</h1>
+            <button id="toggle-sidebar" class="p-2 bg-gray-200 rounded focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </header>
+
+        <!-- Dashboard Overview -->
+        <section id="dashboard" class="dashboard-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
+            <div class="bg-white p-3 sm:p-4 rounded-lg shadow-md card-hover animate-slide-up">
+                <h3 class="text-sm sm:text-lg font-semibold">Total Blogs</h3>
+                <p id="total-blogs" class="text-lg sm:text-2xl mt-1 sm:mt-2">0</p>
+                <p class="text-xs sm:text-sm text-gray-500 mt-1">Published: <span id="published-blogs">0</span> | Draft: <span id="draft-blogs">0</span></p>
+            </div>
+            <div class="bg-white p-3 sm:p-4 rounded-lg shadow-md card-hover animate-slide-up" style="animation-delay: 0.1s">
+                <h3 class="text-sm sm:text-lg font-semibold">Total Users</h3>
+                <p id="total-users" class="text-lg sm:text-2xl mt-1 sm:mt-2">0</p>
+            </div>
+            <div class="bg-white p-3 sm:p-4 rounded-lg shadow-md card-hover animate-slide-up" style="animation-delay: 0.2s">
+                <h3 class="text-sm sm:text-lg font-semibold">Messages</h3>
+                <p id="total-messages" class="text-lg sm:text-2xl mt-1 sm:mt-2">0</p>
+            </div>
+            <div class="bg-white p-3 sm:p-4 rounded-lg shadow-md card-hover animate-slide-up" style="animation-delay: 0.3s">
+                <h3 class="text-sm sm:text-lg font-semibold">Page Views</h3>
+                <p id="page-views" class="text-lg sm:text-2xl mt-1 sm:mt-2">0</p>
+            </div>
+        </section>
+
+        <!-- Manage Blogs -->
+        <section id="blogs" class="bg-white p-3 sm:p-6 rounded-lg shadow-md mb-6 sm:mb-8 animate-fade-in">
+            <h2 class="text-lg sm:text-2xl font-bold mb-3 sm:mb-4">Manage Blogs</h2>
+            <div class="flex flex-col sm:flex-row justify-between mb-2 sm:mb-4 gap-2">
+                <input type="text" id="blog-search" placeholder="Search blogs..." class="w-full sm:w-64 p-2 border rounded focus:ring-2 focus:ring-blue-500">
+                <button class="bg-blue-500 text-white px-3 sm:px-4 py-1 sm:py-2 rounded hover:bg-blue-600 text-sm sm:text-base">Add New Blog</button>
+            </div>
+            <div class="table-responsive">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="p-1 sm:p-2">Title</th>
+                            <th class="p-1 sm:p-2">Author</th>
+                            <th class="p-1 sm:p-2">Category</th>
+                            <th class="p-1 sm:p-2">Status</th>
+                            <th class="p-1 sm:p-2">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="blogs-table-body"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Manage Users -->
+        <section id="users" class="bg-white p-3 sm:p-6 rounded-lg shadow-md mb-6 sm:mb-8 animate-fade-in" style="animation-delay: 0.1s">
+            <h2 class="text-lg sm:text-2xl font-bold mb-3 sm:mb-4">Manage Users</h2>
+            <div class="flex flex-col sm:flex-row justify-between mb-2 sm:mb-4 gap-2">
+                <input type="text" id="user-search" placeholder="Search users..." class="w-full sm:w-64 p-2 border rounded focus:ring-2 focus:ring-blue-500">
+                <p class="text-xs sm:text-base">Most Active User: <span id="most-active-user">Loading...</span></p>
+            </div>
+            <div class="table-responsive">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="p-1 sm:p-2">Name</th>
+                            <th class="p-1 sm:p-2">Email</th>
+                            <th class="p-1 sm:p-2">Role</th>
+                            <th class="p-1 sm:p-2">Status</th>
+                            <th class="p-1 sm:p-2">Post Block</th>
+                            <th class="p-1 sm:p-2">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-table-body"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Contact Messages -->
+        <section id="messages" class="bg-white p-3 sm:p-6 rounded-lg shadow-md mb-6 sm:mb-8 animate-fade-in" style="animation-delay: 0.2s">
+            <h2 class="text-lg sm:text-2xl font-bold mb-3 sm:mb-4">Contact Messages</h2>
+            <div class="table-responsive">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="p-1 sm:p-2">Name</th>
+                            <th class="p-1 sm:p-2">Email</th>
+                            <th class="p-1 sm:p-2">Message</th>
+                            <th class="p-1 sm:p-2">Date</th>
+                            <th class="p-1 sm:p-2">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="messages-table-body"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Analytics -->
+        <section id="analytics" class="bg-white p-3 sm:p-6 rounded-lg shadow-md animate-fade-in" style="animation-delay: 0.3s">
+            <h2 class="text-lg sm:text-2xl font-bold mb-3 sm:mb-4">Analytics</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                <div class="bg-gray-50 p-3 sm:p-4 rounded">
+                    <h3 class="text-sm sm:text-lg font-semibold">Page Views</h3>
+                    <p id="analytics-page-views" class="text-lg sm:text-2xl mt-1 sm:mt-2">0</p>
+                </div>
+                <div class="bg-gray-50 p-3 sm:p-4 rounded">
+                    <h3 class="text-sm sm:text-lg font-semibold">Unique Visitors</h3>
+                    <p id="analytics-unique-visitors" class="text-lg sm:text-2xl mt-1 sm:mt-2">0</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
     <script type="module" src="./admin.js"></script>
 </body>
 </html>
