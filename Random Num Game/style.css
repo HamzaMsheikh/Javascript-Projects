@@ -1,0 +1,39 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(255, 237, 243);
+}
+
+#container {
+    background-color: whitesmoke;
+    margin-top: 20vh;
+    border-radius: 10px;
+    border: 1px solid rgb(255, 222, 227);
+    box-shadow: 8px 10px 5px rgb(245, 218, 227);
+    height: 270px;
+    width: 450px;
+}
+
+#lives {
+    font-weight: bold;
+}
+
+#inpNum {
+    width: 50px;
+}
+
+#submit {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+#submit:hover {
+    background-color: #3e8e41;
+}
+
+#result{
+    font-size: 18px;
+    font-weight: bold;
+}
