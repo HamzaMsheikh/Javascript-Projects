@@ -1,39 +1,85 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: rgb(255, 237, 243);
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #f9d2d2, #fde2e2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-#container {
-    background-color: whitesmoke;
-    margin-top: 20vh;
-    border-radius: 10px;
-    border: 1px solid rgb(255, 222, 227);
-    box-shadow: 8px 10px 5px rgb(245, 218, 227);
-    height: 270px;
-    width: 450px;
+.game-container {
+  background: white;
+  padding: 30px 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+  animation: popUp 0.6s ease-out;
+}
+
+h1 {
+  margin-bottom: 15px;
+  color: #ff4f5a;
 }
 
 #lives {
-    font-weight: bold;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #444;
 }
 
 #inpNum {
-    width: 50px;
+  padding: 10px;
+  width: 80px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  outline: none;
+  transition: 0.2s;
+}
+
+#inpNum:focus {
+  border-color: #ff4f5a;
 }
 
 #submit {
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-}
-#submit:hover {
-    background-color: #3e8e41;
+  background-color: #ff4f5a;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
-#result{
-    font-size: 18px;
-    font-weight: bold;
+#submit:hover {
+  background-color: #e5434e;
+}
+
+#result {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  min-height: 24px;
+  transition: all 0.3s ease-in-out;
+  color: #333;
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popUp {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }

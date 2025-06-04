@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Num Game</title>
-    <link rel="stylesheet" href="./style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Number Guess Game</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<center><div id="container">
-    <h1>Guess the Number</h1>
-    <p id="lives">Lives: 3</p>
-    <input type="number" id="inpNum">
+  <div class="game-container fade-in">
+    <h1>🎯 Guess the Number</h1>
+    <p id="lives">❤️ Lives: 3</p>
+    <input type="number" id="inpNum" placeholder="1-10" min="1" max="10"/>
     <button id="submit">Guess</button>
     <p id="result"></p>
-</div></center>    
-    <script src="./script.js"></script>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
